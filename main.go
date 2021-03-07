@@ -48,8 +48,8 @@ func main() {
 			innerEvent := eventsAPIEvent.InnerEvent
 			switch event := innerEvent.Data.(type) {
 			case *slackevents.AppMentionEvent:
-				if strings.Contains(event.Text, "山") {
-					if _, _, err := api.PostMessage(event.Channel, slack.MsgOptionText("川!", false)); err != nil {
+				if strings.Contains(event.Text, "や") {
+					if _, _, err := api.PostMessage(event.Channel, slack.MsgOptionText("こんにちは。これはテストです。", false)); err != nil {
 						log.Println(err)
 						w.WriteHeader(http.StatusInternalServerError)
 						return
