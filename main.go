@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	api := slack.New("xoxb-541408309975-1843511741569-zIlrO6nUNIJM5wbo6aibyUZZ")
+	api := slack.New("xoxb-541408309975-1843511741569-73WKpZHGQJq31BbmvgocqwZr")
 
 	http.HandleFunc("/slack/events", func(w http.ResponseWriter, r *http.Request) {
 		body, err := ioutil.ReadAll(r.Body)
