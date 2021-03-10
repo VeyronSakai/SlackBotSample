@@ -12,10 +12,23 @@ import (
 )
 
 func main() {
-	api := slack.New("xoxb-1742944564932-1824460197846-ywnWOzfmFs15Tl4kppJtjnLj")
+	api := slack.New(os.Getenv("SLACK_BOT_TOKEN"))
 
-	http.HandleFunc("/slack/events", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/slack/events", HandleEvents(api))
+
+	log.Println("[INFO] Server listening")
+	port := os.Getenv("PORT")
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func HandleEvents(api *slack.Client) func(w http.ResponseWriter, r *http.Request) {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+
 		body, err := ioutil.ReadAll(r.Body)
+
 		if err != nil {
 			log.Println(err)
 			w.WriteHeader(http.StatusInternalServerError)
@@ -57,11 +70,5 @@ func main() {
 				}
 			}
 		}
-	})
-
-	log.Println("[INFO] Server listening")
-	port := os.Getenv("PORT")
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatal(err)
 	}
 }
