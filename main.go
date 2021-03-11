@@ -17,7 +17,9 @@ func main() {
 	http.HandleFunc("/slack/events", HandleEvents(api))
 
 	log.Println("[INFO] Server listening")
+
 	port := os.Getenv("PORT")
+
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal(err)
 	}
